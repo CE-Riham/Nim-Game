@@ -1,9 +1,9 @@
 import React, { CSSProperties, ReactNode, useState } from "react";
 interface ButtonProps {
-  top: string;
-  left: string;
-  width: string;
-  height: string;
+  top: number;
+  left: number;
+  width: number;
+  height: number;
   onClick: () => void;
   children?: ReactNode;
 }
@@ -29,10 +29,10 @@ const TransparentButton = ({
     backgroundColor: "transparent",
     zIndex: 100,
     position: "absolute",
-    top: top,
-    left: left,
-    width: width,
-    height: height,
+    top: `${top}%`,
+    left: `${left}%`,
+    width: `${width}%`,
+    height: `${height}%`,
     border: 0,
     cursor: isHovered ? "pointer" : "default",
   };
