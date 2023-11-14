@@ -6,6 +6,7 @@ interface ButtonProps {
   height: number;
   onClick: () => void;
   children?: ReactNode;
+  color?: string;
 }
 const TransparentButton = ({
   top,
@@ -14,6 +15,7 @@ const TransparentButton = ({
   onClick,
   width,
   height,
+  color = "",
 }: ButtonProps) => {
   const [isHovered, setHovered] = useState(false);
 
@@ -26,7 +28,7 @@ const TransparentButton = ({
   };
 
   const buttonStyles: CSSProperties = {
-    backgroundColor: "transparent",
+    backgroundColor: color || "transparent",
     zIndex: 100,
     position: "absolute",
     top: `${top}%`,
