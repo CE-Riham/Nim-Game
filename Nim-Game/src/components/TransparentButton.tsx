@@ -1,20 +1,23 @@
-import React, { CSSProperties, ReactNode, useState } from "react";
-interface ButtonProps {
+import React, { CSSProperties, FC, ReactNode, useState } from "react";
+type ButtonProps = {
   top: number;
   left: number;
   width: number;
   height: number;
   onClick: () => void;
   children?: ReactNode;
-}
-const TransparentButton = ({
+  color?: string;
+};
+
+const TransparentButton: FC<ButtonProps> = ({
   top,
   left,
   children = "",
   onClick,
   width,
   height,
-}: ButtonProps) => {
+  color = "",
+}) => {
   const [isHovered, setHovered] = useState(false);
 
   const handleMouseEnter = () => {
@@ -26,7 +29,7 @@ const TransparentButton = ({
   };
 
   const buttonStyles: CSSProperties = {
-    backgroundColor: "transparent",
+    backgroundColor: color || "transparent",
     zIndex: 100,
     position: "absolute",
     top: `${top}%`,

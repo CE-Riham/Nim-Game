@@ -1,9 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 import TransparentButton from "../components/TransparentButton";
-interface WelcomePageProps {
+
+type WelcomePageProps = {
   onClick: () => void;
-}
-function WelcomePage({ onClick }: WelcomePageProps) {
+};
+
+const WelcomePage: FC<WelcomePageProps> = ({ onClick }) => {
   return (
     <div style={{ width: "100%", height: "100%" }}>
       <img
@@ -25,5 +27,5 @@ function WelcomePage({ onClick }: WelcomePageProps) {
       />
     </div>
   );
-}
+};
 export default WelcomePage;
