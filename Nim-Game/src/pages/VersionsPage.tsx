@@ -1,6 +1,9 @@
-import React from "react";
+import React, { FC } from "react";
 
-const VersionsPage = () => {
+type VersionsProps = {
+  setCurrentPage: (nextPage: string) => void;
+};
+const VersionsPage: FC<VersionsProps> = ({ setCurrentPage }) => {
   return (
     <div
       style={{
@@ -11,8 +14,24 @@ const VersionsPage = () => {
         alignItems: "center",
       }}
     >
-      <button style={{ width: "30%", height: "10%" }}>v1</button>
-      <button style={{ width: "30%", height: "10%" }}>v2</button>
+      <button
+        style={{ width: "30%", height: "10%" }}
+        onClick={() => {
+          setCurrentPage("VersionOne");
+          console.log("Version 1");
+        }}
+      >
+        v1
+      </button>
+      <button
+        style={{ width: "30%", height: "10%" }}
+        onClick={() => {
+          setCurrentPage("VersionTwo");
+          console.log("Version 2");
+        }}
+      >
+        v2
+      </button>
     </div>
   );
 };

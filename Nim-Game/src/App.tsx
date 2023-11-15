@@ -1,6 +1,8 @@
 import { useState } from "react";
 import WelcomePage from "./pages/WelcomePage";
 import VersionsPage from "./pages/VersionsPage";
+import VersionOne from "./pages/VersionOne";
+import VersionTwo from "./pages/VersionTwo";
 function App() {
   const [currentPage, setCurrentPage] = useState("WelcomePage");
   const [prevPage, setPrevPage] = useState("WelcomePage");
@@ -13,9 +15,13 @@ function App() {
           onClick={() => {
             setCurrentPage("VersionsPage");
           }}
-        ></WelcomePage>
+        />
       )}
-      {currentPage === "VersionsPage" && <VersionsPage></VersionsPage>}
+      {currentPage === "VersionsPage" && (
+        <VersionsPage setCurrentPage={setCurrentPage} />
+      )}
+      {currentPage === "VersionOne" && <VersionOne />}
+      {currentPage === "VersionTwo" && <VersionTwo />}
     </div>
   );
 }
