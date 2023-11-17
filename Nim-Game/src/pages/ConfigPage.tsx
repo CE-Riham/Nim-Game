@@ -23,6 +23,7 @@ const ConfigPage: FC<ConfigProps> = ({
                 setGameSettings((prevSettings: Game): Game => {
                   const tmp = [...gameSettings.piles];
                   tmp[index]++;
+                  if (tmp[index] === 11) tmp[index] = 1;
                   return {
                     ...prevSettings,
                     piles: [...tmp],
