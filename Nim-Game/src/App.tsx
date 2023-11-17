@@ -3,6 +3,7 @@ import WelcomePage from "./pages/WelcomePage";
 import VersionsPage from "./pages/VersionsPage";
 import ConfigurationsPage from "./pages/ConfigPage";
 import ConfigPage from "./pages/ConfigPage";
+import GamePage from "./pages/GamePage";
 
 export type Game = {
   piles: number[];
@@ -21,6 +22,7 @@ export const gameDefault: Game = {
 function App() {
   const [currentPage, setCurrentPage] = useState("WelcomePage");
   const [gameSettings, setGameSettings] = useState<Game>(gameDefault);
+  console.log(gameSettings);
 
   return (
     <div style={{ position: "absolute", width: "100%", height: "100%" }}>
@@ -37,7 +39,14 @@ function App() {
         <ConfigPage
           setCurrentPage={setCurrentPage}
           setGameSettings={setGameSettings}
-          gameSettings = {gameSettings}
+          gameSettings={gameSettings}
+        />
+      )}
+      {currentPage === "GamePage" && (
+        <GamePage
+          setCurrentPage={setCurrentPage}
+          setGameSettings={setGameSettings}
+          gameSettings={gameSettings}
         />
       )}
     </div>

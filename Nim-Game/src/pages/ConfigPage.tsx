@@ -14,7 +14,47 @@ const ConfigPage: FC<ConfigProps> = ({
 }) => {
   return (
     <>
-      <div>
+      {gameSettings.player2 === "computer" && (
+        <div style={{ backgroundColor: "pink" }}>
+          <button
+            onClick={() => {
+              setGameSettings(
+                (prevSettings: Game): Game => ({
+                  ...prevSettings,
+                  difficulty: "easy",
+                })
+              );
+            }}
+          >
+            Easy
+          </button>
+          <button
+            onClick={() => {
+              setGameSettings(
+                (prevSettings: Game): Game => ({
+                  ...prevSettings,
+                  difficulty: "medium",
+                })
+              );
+            }}
+          >
+            Medium
+          </button>
+          <button
+            onClick={() => {
+              setGameSettings(
+                (prevSettings: Game): Game => ({
+                  ...prevSettings,
+                  difficulty: "hard",
+                })
+              );
+            }}
+          >
+            Hard
+          </button>
+        </div>
+      )}
+      <div style={{ backgroundColor: "red" }}>
         {gameSettings.piles.map((numberOfStones: number, index: number) => {
           return (
             <button
@@ -48,7 +88,6 @@ const ConfigPage: FC<ConfigProps> = ({
       >
         add a pile
       </button>
-      <div>ConfigrationsPage</div>
       <button
         style={{ width: "30%", height: "10%" }}
         onClick={() => {
@@ -57,6 +96,28 @@ const ConfigPage: FC<ConfigProps> = ({
         }}
       >
         back
+      </button>
+      <button
+        onClick={() => {
+          setGameSettings(
+            (prevSettings: Game): Game => ({
+              ...prevSettings,
+              player2:
+                prevSettings.player2 === "computer" ? "player2" : "computer",
+            })
+          );
+        }}
+      >
+        {gameSettings.player2 === "computer"
+          ? "2 Players"
+          : "Play with computer"}
+      </button>
+      <button
+        onClick={() => {
+          setCurrentPage("GamePage");
+        }}
+      >
+        Start playing
       </button>
     </>
   );
