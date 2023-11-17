@@ -3,6 +3,7 @@ import WelcomePage from "./pages/WelcomePage";
 import VersionsPage from "./pages/VersionsPage";
 import ConfigurationsPage from "./pages/ConfigPage";
 import ConfigPage from "./pages/ConfigPage";
+import GamePage from "./pages/GamePage";
 
 export type Game = {
   piles: number[];
@@ -38,7 +39,14 @@ function App() {
         <ConfigPage
           setCurrentPage={setCurrentPage}
           setGameSettings={setGameSettings}
-          gameSettings = {gameSettings}
+          gameSettings={gameSettings}
+        />
+      )}
+      {currentPage === "GamePage" && (
+        <GamePage
+          setCurrentPage={setCurrentPage}
+          setGameSettings={setGameSettings}
+          gameSettings={gameSettings}
         />
       )}
     </div>

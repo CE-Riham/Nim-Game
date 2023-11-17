@@ -112,7 +112,13 @@ const ConfigPage: FC<ConfigProps> = ({
           ? "2 Players"
           : "Play with computer"}
       </button>
-      <button>Start playing</button>
+      <button
+        onClick={() => {
+          setCurrentPage("GamePage");
+        }}
+      >
+        Start playing
+      </button>
     </>
   );
 };
