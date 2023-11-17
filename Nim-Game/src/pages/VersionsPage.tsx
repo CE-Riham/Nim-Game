@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import { Game } from "../App";
+import { Game, gameDefault } from "../App";
 
 type VersionsProps = {
   setCurrentPage: (nextPage: string) => void;
@@ -46,6 +46,16 @@ const VersionsPage: FC<VersionsProps> = ({
         }}
       >
         v2
+      </button>
+      <button
+        style={{ width: "30%", height: "10%" }}
+        onClick={() => {
+          setCurrentPage("WelcomePage");
+          setGameSettings(gameDefault);
+        }} 
+    
+      >
+        back
       </button>
     </div>
   );
