@@ -2,10 +2,10 @@ import React, { FC, useEffect, useState } from "react";
 import TransparentButton from "../components/TransparentButton";
 
 type WelcomePageProps = {
-  onClick: () => void;
+  setCurrentPage: (nextPage: string) => void;
 };
 
-const WelcomePage: FC<WelcomePageProps> = ({ onClick }) => {
+const WelcomePage: FC<WelcomePageProps> = ({ setCurrentPage }) => {
   return (
     <div style={{ width: "100%", height: "100%" }}>
       <img
@@ -23,7 +23,9 @@ const WelcomePage: FC<WelcomePageProps> = ({ onClick }) => {
         width={17}
         top={56}
         height={9}
-        onClick={onClick}
+        onClick={() => {
+          setCurrentPage("VersionsPage");
+        }}
       />
     </div>
   );

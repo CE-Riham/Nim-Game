@@ -1,9 +1,14 @@
 import React, { FC } from "react";
+import { Game } from "../App";
 
 type VersionsProps = {
   setCurrentPage: (nextPage: string) => void;
+  setGameSettings: (settings: any) => void;
 };
-const VersionsPage: FC<VersionsProps> = ({ setCurrentPage }) => {
+const VersionsPage: FC<VersionsProps> = ({
+  setCurrentPage,
+  setGameSettings,
+}) => {
   return (
     <div
       style={{
@@ -17,8 +22,13 @@ const VersionsPage: FC<VersionsProps> = ({ setCurrentPage }) => {
       <button
         style={{ width: "30%", height: "10%" }}
         onClick={() => {
-          setCurrentPage("VersionOne");
-          console.log("Version 1");
+          setCurrentPage("ConfigPage");
+          setGameSettings(
+            (prevSettings: Game): Game => ({
+              ...prevSettings,
+              version: "version1",
+            })
+          );
         }}
       >
         v1
@@ -26,8 +36,13 @@ const VersionsPage: FC<VersionsProps> = ({ setCurrentPage }) => {
       <button
         style={{ width: "30%", height: "10%" }}
         onClick={() => {
-          setCurrentPage("VersionTwo");
-          console.log("Version 2");
+          setCurrentPage("ConfigPage");
+          setGameSettings(
+            (prevSettings: Game): Game => ({
+              ...prevSettings,
+              version: "version2",
+            })
+          );
         }}
       >
         v2
