@@ -1,20 +1,18 @@
 import { useState } from "react";
 import WelcomePage from "./pages/WelcomePage";
 import VersionsPage from "./pages/VersionsPage";
-import VersionOne from "./pages/VersionOne";
-import VersionTwo from "./pages/VersionTwo";
 import ConfigurationsPage from "./pages/ConfigPage";
 import ConfigPage from "./pages/ConfigPage";
 
 export type Game = {
-  numberOfPiles: number[];
+  piles: number[];
   version: string | null;
   player2: string;
   difficulty: string;
 };
 
 export const gameDefault: Game = {
-  numberOfPiles: [],
+  piles: [],
   version: null,
   player2: "computer",
   difficulty: "easy",
@@ -42,6 +40,7 @@ function App() {
         <ConfigPage
           setCurrentPage={setCurrentPage}
           setGameSettings={setGameSettings}
+          gameSettings = {gameSettings}
         />
       )}
     </div>
