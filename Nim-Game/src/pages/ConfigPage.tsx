@@ -1,10 +1,12 @@
 import React, { FC } from "react";
 import { Game, gameDefault } from "../App";
+
 type ConfigProps = {
   setCurrentPage: (nextPage: string) => void;
   setGameSettings: (settings: any) => void;
   gameSettings: Game;
 };
+
 const ConfigPage: FC<ConfigProps> = ({
   setCurrentPage,
   setGameSettings,
@@ -13,8 +15,24 @@ const ConfigPage: FC<ConfigProps> = ({
   return (
     <>
       <div>
-        {gameSettings.piles.map((numberOfStones: number) => {
-          return <div>{numberOfStones}</div>;
+        {gameSettings.piles.map((numberOfStones: number, index: number) => {
+          return (
+            <button
+              key={index}
+              onClick={() => {
+                setGameSettings((prevSettings: Game): Game => {
+                  const tmp = [...gameSettings.piles];
+                  tmp[index]++;
+                  return {
+                    ...prevSettings,
+                    piles: [...tmp],
+                  };
+                });
+              }}
+            >
+              {numberOfStones}
+            </button>
+          );
         })}
       </div>
       <button

@@ -21,12 +21,9 @@ export const gameDefault: Game = {
 function App() {
   const [currentPage, setCurrentPage] = useState("WelcomePage");
   const [gameSettings, setGameSettings] = useState<Game>(gameDefault);
-  console.log(gameSettings);
 
   return (
     <div style={{ position: "absolute", width: "100%", height: "100%" }}>
-      {/* <VersionsPage></VersionsPage> */}
-      {/* {<ConfigurationsPage></ConfigurationsPage>} */}
       {currentPage === "WelcomePage" && (
         <WelcomePage setCurrentPage={setCurrentPage} />
       )}
