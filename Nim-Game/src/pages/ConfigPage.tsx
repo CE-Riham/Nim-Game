@@ -106,11 +106,7 @@ const ConfigPage: FC<ConfigProps> = ({
               })
             );
           }}
-        >
-          {gameSettings.player2 === "computer"
-            ? "2 Players"
-            : "Play with computer"}
-        </button>
+        />
       </div>
       {/* back */}
       <div
@@ -275,6 +271,32 @@ const ConfigPage: FC<ConfigProps> = ({
       >
         <text>Click on the pile to increse it</text>
       </div>
+      {gameSettings.player2 === "computer" && (
+        <img
+          src={"/src/assets/configPage/2players.svg"}
+          style={{
+            zIndex: "-1",
+            position: "absolute",
+            width: "12%",
+            height: "8.2%",
+            top: "60%",
+            left: "37.1%",
+          }}
+        />
+      )}
+      {gameSettings.player2 === "player2" && (
+        <img
+          src={"/src/assets/configPage/computer.svg"}
+          style={{
+            zIndex: "-1",
+            position: "absolute",
+            width: "12%",
+            height: "8.2%",
+            top: "60%",
+            left: "37.1%",
+          }}
+        />
+      )}
     </div>
   );
 };
