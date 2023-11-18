@@ -19,10 +19,10 @@ const WelcomePage: FC<WelcomePageProps> = ({ setCurrentPage }) => {
         }}
       />
       <TransparentButton
-        left={66}
-        width={17}
-        top={60.5}
-        height={9}
+        left={66.5}
+        width={12.5}
+        top={55.5}
+        height={8.5}
         onClick={() => {
           setCurrentPage("VersionsPage");
         }}
