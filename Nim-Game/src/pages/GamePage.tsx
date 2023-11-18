@@ -16,32 +16,82 @@ const GamePage: FC<GameProps> = ({
   const [stonesToPull, setStonesToPull] = useState<number | null>(null);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
+  const isLastStoneRemoved = () => {
+    const isEmpty = gameSettings.piles.every((pile) => pile === 0);
+    console.log("Is last stone removed?", isEmpty);
+    return isEmpty;
+  };
+
+  const handleWinner = (userWins: boolean) => {
+    if (userWins) {
+      // user wins
+      setErrorMessage("You are winner");
+    } else {
+      //  user loses
+      setErrorMessage("You are loser");
+    }
+  };
+  const handleComputerMove = () => {
+    if (gameSettings.version === "version2") {
+      const newPiles = [...gameSettings.piles];
+      let pileIndex = -1;
+
+      // Easy
+      if (gameSettings.difficulty === "easy") {
+        pileIndex = Math.floor(Math.random() * newPiles.length);
+      }
+
+      // Medium
+      else if (gameSettings.difficulty === "medium") {
+        for (let i = 0; i < newPiles.length; i++) {
+          if (newPiles[i] > 0) {
+            pileIndex = i;
+            break;
+          }
+        }
+      }
+
+      // Make the move
+      if (pileIndex !== -1 && newPiles[pileIndex] > 0) {
+        newPiles[pileIndex]--;
+      }
+
+      // Update
+      setGameSettings((prevSettings: Game) => ({
+        ...prevSettings,
+        piles: newPiles,
+      }));
+
+      if (isLastStoneRemoved()) {
+        handleWinner(true);
+      }
+    }
+  };
+
   const handlePullStones = () => {
     if (selectedPile !== null && stonesToPull !== null) {
-      // Check if the entered value is a valid move
       if (
         stonesToPull > 0 &&
         stonesToPull <= gameSettings.piles[selectedPile] &&
         stonesToPull !== gameSettings.piles[selectedPile] / 2
       ) {
-        // Implement your logic based on the game version
         const newPiles = [...gameSettings.piles];
         newPiles[selectedPile] -= stonesToPull;
 
-        // Update the game state with the new piles
+        // Update
         setGameSettings((prevSettings: Game) => ({
           ...prevSettings,
           piles: newPiles,
         }));
 
-        // Reset error message if move is successful
+        // Reset
         setErrorMessage(null);
 
-        // Reset selectedPile and stonesToPull after the move is handled
+        // Reset
         setSelectedPile(null);
         setStonesToPull(null);
       } else {
-        // Handle invalid move (e.g., display an error message)
+        //  invalid move
         setErrorMessage(
           "Invalid move. Please choose a valid number of stones to pull that is not equal to half of the pile."
         );
@@ -54,29 +104,29 @@ const GamePage: FC<GameProps> = ({
       const newPiles = [...gameSettings.piles];
 
       if (selectedPile === null) {
-        // If no pile is selected, set the selected pile
+        // If no pile
         setSelectedPile(pileIndex);
       } else if (selectedPile !== pileIndex) {
-        // If trying to remove from a different pile, show an error
+        // If trying to remove from a different pile
         setErrorMessage("Incorrect remove. Remove stones from the same pile.");
         return;
       }
 
-      // Reduce the number of stones in the selected pile by 1
       newPiles[pileIndex]--;
 
-      // Update the game state with the new piles
       setGameSettings((prevSettings: Game) => ({
         ...prevSettings,
         piles: newPiles,
       }));
+      if (isLastStoneRemoved()) {
+        handleWinner(true);
+      }
 
-      // Reset error message
+      // Reset
       setErrorMessage(null);
     } else {
-      // Handle version1 logic (pulling stones)
       if (selectedPile !== null && stonesToPull !== null) {
-        // Check if the entered value is a valid move
+        // Check valid move
         if (
           stonesToPull > 0 &&
           stonesToPull < gameSettings.piles[selectedPile] &&
@@ -85,22 +135,27 @@ const GamePage: FC<GameProps> = ({
           const newPiles = [...gameSettings.piles];
           newPiles[selectedPile] -= stonesToPull;
 
-          // Update the game state with the new piles
+          // Update s
           setGameSettings((prevSettings: Game) => ({
             ...prevSettings,
             piles: newPiles,
           }));
 
-          // Reset error message if move is successful
+          // Check for a winner
+          if (isLastStoneRemoved()) {
+            handleWinner(true);
+          }
+
+          // Reset
           setErrorMessage(null);
         } else {
-          // Handle invalid move (e.g., display an error message)
+          // invalid move
           setErrorMessage(
             "Invalid move. Please choose a valid number of stones to pull that is not equal to half of the pile."
           );
         }
 
-        // Reset selectedPile and stonesToPull after the move is handled
+        // Reset
         setSelectedPile(null);
         setStonesToPull(null);
       }
@@ -134,7 +189,6 @@ const GamePage: FC<GameProps> = ({
         </button>
       );
     } else {
-      // For all other versions, including version2, do not render the pull button
       return null;
     }
   };
@@ -152,7 +206,6 @@ const GamePage: FC<GameProps> = ({
               <button
                 key={stoneIndex}
                 onClick={() => {
-                  // Handle stone removal based on the game version
                   handleRemoveStone(pileIndex, stoneIndex);
                 }}
                 disabled={numberOfStones === 0}
@@ -160,24 +213,19 @@ const GamePage: FC<GameProps> = ({
                 {stoneIndex + 1}
               </button>
             ))}
-            {/* Button to pull stones */}
+            {}
             {renderPullButton()}
           </div>
         ))}
       </div>
 
-      {/* Display error message */}
+      {}
       {errorMessage && <div style={{ color: "red" }}>{errorMessage}</div>}
 
       <button
         onClick={() => {
-          // Logic to handle computer's move
-          // Update the game state accordingly
-          // ...
-          // Check for a winner or switch back to the player's turn
-          // ...
-          // Update the game state if needed
-          // setCurrentGameState(newGameState);
+          setSelectedPile(null);
+          handleComputerMove();
         }}
       >
         Computer's Move
@@ -185,7 +233,7 @@ const GamePage: FC<GameProps> = ({
       <button
         style={{ width: "30%", height: "10%" }}
         onClick={() => {
-          // Logic to end the game and navigate to a result page
+          //  result page
           setCurrentPage("ResultPage");
         }}
       >
