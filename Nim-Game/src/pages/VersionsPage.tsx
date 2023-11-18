@@ -43,12 +43,12 @@ const VersionsPage: FC<VersionsProps> = ({
         style={{
           width: "56%",
           position: "absolute",
-          top: "36.5%",
+          top: "39%",
           left: "22%",
           height: "36%",
           justifyContent: "space-between",
           display: "flex",
-          zIndex: "2",
+          zIndex: "3",
         }}
       >
         {/* version1 */}
@@ -106,18 +106,14 @@ const VersionsPage: FC<VersionsProps> = ({
           height: "15%",
         }}
       >
-        <button
-          style={{
-            width: "30%",
-            height: "52%",
-            backgroundColor: "transparent",
-            border: "0",
-          }}
+        <TransparentButton
+          width={30}
+          height={52}
           onClick={() => {
             setCurrentPage("WelcomePage");
             setGameSettings(gameDefault);
           }}
-        ></button>
+        ></TransparentButton>
       </div>
       {/* version 1 hover */}
       {!isHovered1 && (

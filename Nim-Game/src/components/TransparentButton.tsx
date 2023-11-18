@@ -1,13 +1,12 @@
 import React, { CSSProperties, FC, ReactNode, useState } from "react";
 type ButtonProps = {
-  top: number;
-  left: number;
-  width: number;
-  height: number;
+  top?: number;
+  left?: number;
+  width?: number;
+  height?: number;
   onClick: () => void;
   children?: ReactNode;
   color?: string;
-  
 };
 
 const TransparentButton: FC<ButtonProps> = ({
@@ -15,8 +14,8 @@ const TransparentButton: FC<ButtonProps> = ({
   left,
   children = "",
   onClick,
-  width,
-  height,
+  width = "100",
+  height = "100",
   color = "",
 }) => {
   const [isHovered, setHovered] = useState(false);
@@ -37,7 +36,7 @@ const TransparentButton: FC<ButtonProps> = ({
     left: `${left}%`,
     width: `${width}%`,
     height: `${height}%`,
-    border: 0,
+    border: "0",
     cursor: isHovered ? "pointer" : "default",
   };
 

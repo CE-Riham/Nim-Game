@@ -1,5 +1,6 @@
 import React, { FC, useState } from "react";
 import { Game, gameDefault } from "../App";
+import TransparentButton from "../components/TransparentButton";
 
 type ConfigProps = {
   setCurrentPage: (nextPage: string) => void;
@@ -34,16 +35,10 @@ const ConfigPage: FC<ConfigProps> = ({
           left: "43.5%",
         }}
       >
-        <button
-          style={{
-            width: "100%",
-            height: "100%",
-            backgroundColor: "transparent",
-            border: "0",
-          }}
+        <TransparentButton
           onClick={() => {
-            if (gameSettings.piles.length === 10) {
-              alert("Can't add more than 10 piles!");
+            if (gameSettings.piles.length === 7) {
+              alert("Can't add more than 7 piles!");
             } else
               setGameSettings(
                 (prevSettings: Game): Game => ({
@@ -64,13 +59,7 @@ const ConfigPage: FC<ConfigProps> = ({
           left: "52.7%",
         }}
       >
-        <button
-          style={{
-            width: "100%",
-            height: "100%",
-            backgroundColor: "transparent",
-            border: "0",
-          }}
+        <TransparentButton
           onClick={() => {
             if (gameSettings.piles.length === 0) {
               alert("There are no piles to start the game!");
@@ -88,13 +77,7 @@ const ConfigPage: FC<ConfigProps> = ({
           left: "35%",
         }}
       >
-        <button
-          style={{
-            width: "100%",
-            height: "100%",
-            backgroundColor: "transparent",
-            border: "0",
-          }}
+        <TransparentButton
           onClick={() => {
             setGameSettings(
               (prevSettings: Game): Game => ({
@@ -116,13 +99,7 @@ const ConfigPage: FC<ConfigProps> = ({
           left: "1.6%",
         }}
       >
-        <button
-          style={{
-            width: "100%",
-            height: "100%",
-            backgroundColor: "transparent",
-            border: "0",
-          }}
+        <TransparentButton
           onClick={() => {
             setCurrentPage("VersionsPage");
             setGameSettings(gameDefault);
@@ -139,13 +116,7 @@ const ConfigPage: FC<ConfigProps> = ({
           left: "36%",
         }}
       >
-        <button
-          style={{
-            width: "100%",
-            height: "100%",
-            backgroundColor: "transparent",
-            border: "0",
-          }}
+        <TransparentButton
           onClick={() => {
             setGameSettings(
               (prevSettings: Game): Game => ({
@@ -166,13 +137,7 @@ const ConfigPage: FC<ConfigProps> = ({
           left: "45.8%",
         }}
       >
-        <button
-          style={{
-            width: "100%",
-            height: "100%",
-            backgroundColor: "transparent",
-            border: "0",
-          }}
+        <TransparentButton
           onClick={() => {
             setGameSettings(
               (prevSettings: Game): Game => ({
@@ -193,13 +158,7 @@ const ConfigPage: FC<ConfigProps> = ({
           left: "56.2%",
         }}
       >
-        <button
-          style={{
-            width: "100%",
-            height: "100%",
-            backgroundColor: "transparent",
-            border: "0",
-          }}
+        <TransparentButton
           onClick={() => {
             setGameSettings(
               (prevSettings: Game): Game => ({
