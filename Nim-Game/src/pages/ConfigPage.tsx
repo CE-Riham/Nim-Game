@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, useState } from "react";
 import { Game, gameDefault } from "../App";
 
 type ConfigProps = {
@@ -12,6 +12,8 @@ const ConfigPage: FC<ConfigProps> = ({
   setGameSettings,
   gameSettings,
 }) => {
+  const [showAlert, setShowAlert] = useState(false);
+
   return (
     <>
       {gameSettings.player2 === "computer" && (
@@ -114,7 +116,9 @@ const ConfigPage: FC<ConfigProps> = ({
       </button>
       <button
         onClick={() => {
-          setCurrentPage("GamePage");
+          if (gameSettings.piles.length === 0) {
+            alert("There are no piles to start the game!");
+          } else setCurrentPage("GamePage");
         }}
       >
         Start playing
