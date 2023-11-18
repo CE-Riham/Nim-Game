@@ -7,6 +7,7 @@ type ButtonProps = {
   onClick: () => void;
   children?: ReactNode;
   color?: string;
+  
 };
 
 const TransparentButton: FC<ButtonProps> = ({

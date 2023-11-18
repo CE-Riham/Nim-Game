@@ -14,12 +14,6 @@ const ConfigPage: FC<ConfigProps> = ({
 }) => {
   const [showAlert, setShowAlert] = useState(false);
 
-  const handleAlert = () => {
-    setShowAlert(true);
-    setTimeout(() => {
-      setShowAlert(false);
-    }, 3000);
-  };
   return (
     <>
       {gameSettings.player2 === "computer" && (
