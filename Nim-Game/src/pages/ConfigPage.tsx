@@ -12,8 +12,6 @@ const ConfigPage: FC<ConfigProps> = ({
   setGameSettings,
   gameSettings,
 }) => {
-  const [showAlert, setShowAlert] = useState(false);
-
   return (
     <div style={{ width: "100%", height: "100%" }}>
       <img

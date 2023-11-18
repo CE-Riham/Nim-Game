@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, useEffect, useState } from "react";
 import { Game, gameDefault } from "../App";
 import TransparentButton from "../components/TransparentButton";
 
@@ -10,6 +10,21 @@ const VersionsPage: FC<VersionsProps> = ({
   setCurrentPage,
   setGameSettings,
 }) => {
+  const [isHovered1, setHovered1] = useState(false);
+  const [isHovered2, setHovered2] = useState(false);
+
+  const handleMouseEnter1 = () => {
+    setHovered1(true);
+  };
+  const handleMouseLeave1 = () => {
+    setHovered1(false);
+  };
+  const handleMouseEnter2 = () => {
+    setHovered2(true);
+  };
+  const handleMouseLeave2 = () => {
+    setHovered2(false);
+  };
   return (
     <div style={{ width: "100%", height: "100%" }}>
       <img
@@ -36,6 +51,7 @@ const VersionsPage: FC<VersionsProps> = ({
           zIndex: "2",
         }}
       >
+        {/* version1 */}
         <button
           style={{
             top: "0",
@@ -43,17 +59,10 @@ const VersionsPage: FC<VersionsProps> = ({
             height: "100%",
             backgroundColor: "transparent",
             border: "0",
+            cursor: isHovered1 ? "pointer" : "default",
           }}
-          onMouseEnter={() => {
-            console.log("enter");
-            // return(<img
-            //   src={"/src/assets/versionPage/v1Before.svg"}
-            //   style={{
-            //     zIndex: "3",
-            //     width: "40%",
-            //   }}
-            // />);
-          }}
+          onMouseEnter={handleMouseEnter1}
+          onMouseLeave={handleMouseLeave1}
           onClick={() => {
             setCurrentPage("ConfigPage");
             setGameSettings(
@@ -64,17 +73,17 @@ const VersionsPage: FC<VersionsProps> = ({
             );
           }}
         />
-
+        {/* version2 */}
         <button
+          onMouseEnter={handleMouseEnter2}
+          onMouseLeave={handleMouseLeave2}
           style={{
             top: "0",
             width: "46%",
             height: "100%",
             backgroundColor: "transparent",
             border: "0",
-          }}
-          onMouseEnter={() => {
-            console.log("enter");
+            cursor: isHovered2 ? "pointer" : "default",
           }}
           onClick={() => {
             setCurrentPage("ConfigPage");
@@ -87,6 +96,7 @@ const VersionsPage: FC<VersionsProps> = ({
           }}
         />
       </div>
+      {/* back */}
       <div
         style={{
           position: "absolute",
@@ -109,6 +119,59 @@ const VersionsPage: FC<VersionsProps> = ({
           }}
         ></button>
       </div>
+      {/* version 1 hover */}
+      {!isHovered1 && (
+        <img
+          src={"/src/assets/versionPage/v1Before.svg"}
+          style={{
+            zIndex: "3",
+            position: "absolute",
+            top: "42%",
+            left: "26%",
+            height: "30%",
+          }}
+        />
+      )}
+      {isHovered1 && (
+        <img
+          src={"/src/assets/versionPage/v1After.svg"}
+          style={{
+            zIndex: "3",
+            position: "absolute",
+            top: "42%",
+            left: "26%",
+            height: "30%",
+          }}
+          alt="version 1 rules"
+        />
+      )}
+
+      {/* version 2 hover */}
+      {!isHovered2 && (
+        <img
+          src={"/src/assets/versionPage/v2Before.svg"}
+          style={{
+            zIndex: "3",
+            position: "absolute",
+            top: "42%",
+            left: "59%",
+            height: "30%",
+          }}
+        />
+      )}
+      {isHovered2 && (
+        <img
+          src={"/src/assets/versionPage/v2After.svg"}
+          style={{
+            zIndex: "3",
+            position: "absolute",
+            top: "42%",
+            left: "59%",
+            height: "30%",
+          }}
+          alt="version 2 rules"
+        />
+      )}
     </div>
   );
 };
