@@ -21,21 +21,12 @@ const GamePage: FC<GameProps> = ({
       // Check if the entered value is a valid move
       if (
         stonesToPull > 0 &&
-        stonesToPull < gameSettings.piles[selectedPile] &&
+        stonesToPull <= gameSettings.piles[selectedPile] &&
         stonesToPull !== gameSettings.piles[selectedPile] / 2
       ) {
-        // Implement your logic here to update the game state
-        // For example, split the pile into two groups
+        // Implement your logic based on the game version
         const newPiles = [...gameSettings.piles];
-        newPiles[selectedPile] -= stonesToPull; // Reduce the stones in the selected pile
-        newPiles[selectedPile] = stonesToPull; // Set the first group in the selected pile
-
-        // Insert a new pile with the remaining stones
-        newPiles.splice(
-          selectedPile + 1,
-          0,
-          gameSettings.piles[selectedPile] - stonesToPull
-        );
+        newPiles[selectedPile] -= stonesToPull;
 
         // Update the game state with the new piles
         setGameSettings((prevSettings: Game) => ({
@@ -45,59 +36,80 @@ const GamePage: FC<GameProps> = ({
 
         // Reset error message if move is successful
         setErrorMessage(null);
+
+        // Reset selectedPile and stonesToPull after the move is handled
+        setSelectedPile(null);
+        setStonesToPull(null);
       } else {
         // Handle invalid move (e.g., display an error message)
         setErrorMessage(
           "Invalid move. Please choose a valid number of stones to pull that is not equal to half of the pile."
         );
       }
-
-      // Reset selectedPile and stonesToPull after the move is handled
-      setSelectedPile(null);
-      setStonesToPull(null);
     }
   };
 
-  return (
-    <div>
-      <h2>Game Page</h2>
-      <div>
-        {gameSettings.piles.map((numberOfStones: number, index: number) => (
-          <div key={index} style={{ display: "flex", flexDirection: "row" }}>
-            {[...Array(numberOfStones)].map((_, stoneIndex) => (
-              <button
-                key={stoneIndex}
-                onClick={() => {
-                  // handlePlayerMove(index);
-                  // Set the selected pile and show the input field
-                  setSelectedPile(index);
-                  setStonesToPull(null);
-                  // Reset error message
-                  setErrorMessage(null);
-                }}
-                disabled={numberOfStones === 0} // Disable the button if no stones in the pile
-              >
-                {stoneIndex + 1}
-              </button>
-            ))}
-            {/* Button to pull stones */}
-            <button
-              onClick={() => {
-                // Show the input field when the button is clicked
-                setSelectedPile(index);
-                setStonesToPull(null);
-                // Reset error message
-                setErrorMessage(null);
-              }}
-            >
-              Pull
-            </button>
-          </div>
-        ))}
-      </div>
+  const handleRemoveStone = (pileIndex: number, stoneIndex: number) => {
+    if (gameSettings.version === "version2") {
+      const newPiles = [...gameSettings.piles];
 
-      {/* Input field for pulling stones */}
-      {selectedPile !== null && (
+      if (selectedPile === null) {
+        // If no pile is selected, set the selected pile
+        setSelectedPile(pileIndex);
+      } else if (selectedPile !== pileIndex) {
+        // If trying to remove from a different pile, show an error
+        setErrorMessage("Incorrect remove. Remove stones from the same pile.");
+        return;
+      }
+
+      // Reduce the number of stones in the selected pile by 1
+      newPiles[pileIndex]--;
+
+      // Update the game state with the new piles
+      setGameSettings((prevSettings: Game) => ({
+        ...prevSettings,
+        piles: newPiles,
+      }));
+
+      // Reset error message
+      setErrorMessage(null);
+    } else {
+      // Handle version1 logic (pulling stones)
+      if (selectedPile !== null && stonesToPull !== null) {
+        // Check if the entered value is a valid move
+        if (
+          stonesToPull > 0 &&
+          stonesToPull < gameSettings.piles[selectedPile] &&
+          stonesToPull !== gameSettings.piles[selectedPile] / 2
+        ) {
+          const newPiles = [...gameSettings.piles];
+          newPiles[selectedPile] -= stonesToPull;
+
+          // Update the game state with the new piles
+          setGameSettings((prevSettings: Game) => ({
+            ...prevSettings,
+            piles: newPiles,
+          }));
+
+          // Reset error message if move is successful
+          setErrorMessage(null);
+        } else {
+          // Handle invalid move (e.g., display an error message)
+          setErrorMessage(
+            "Invalid move. Please choose a valid number of stones to pull that is not equal to half of the pile."
+          );
+        }
+
+        // Reset selectedPile and stonesToPull after the move is handled
+        setSelectedPile(null);
+        setStonesToPull(null);
+      }
+    }
+  };
+
+  const renderPullButton = () => {
+    if (gameSettings.version === "version1" && selectedPile !== null) {
+      return (
         <div>
           <input
             type="number"
@@ -108,7 +120,51 @@ const GamePage: FC<GameProps> = ({
           />
           <button onClick={handlePullStones}>Done</button>
         </div>
-      )}
+      );
+    } else if (gameSettings.version === "version1") {
+      return (
+        <button
+          onClick={() => {
+            setSelectedPile(selectedPile);
+            setStonesToPull(null);
+            setErrorMessage(null);
+          }}
+        >
+          Pull
+        </button>
+      );
+    } else {
+      // For all other versions, including version2, do not render the pull button
+      return null;
+    }
+  };
+
+  return (
+    <div>
+      <h2>Game Page</h2>
+      <div>
+        {gameSettings.piles.map((numberOfStones: number, pileIndex: number) => (
+          <div
+            key={pileIndex}
+            style={{ display: "flex", flexDirection: "row" }}
+          >
+            {[...Array(numberOfStones)].map((_, stoneIndex) => (
+              <button
+                key={stoneIndex}
+                onClick={() => {
+                  // Handle stone removal based on the game version
+                  handleRemoveStone(pileIndex, stoneIndex);
+                }}
+                disabled={numberOfStones === 0}
+              >
+                {stoneIndex + 1}
+              </button>
+            ))}
+            {/* Button to pull stones */}
+            {renderPullButton()}
+          </div>
+        ))}
+      </div>
 
       {/* Display error message */}
       {errorMessage && <div style={{ color: "red" }}>{errorMessage}</div>}
