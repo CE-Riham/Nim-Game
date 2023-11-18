@@ -26,7 +26,7 @@ const ConfigPage: FC<ConfigProps> = ({
           width: "100%",
         }}
       />
-
+      {/* add a pile */}
       <div
         style={{
           width: "13%",
@@ -44,15 +44,19 @@ const ConfigPage: FC<ConfigProps> = ({
             border: "0",
           }}
           onClick={() => {
-            setGameSettings(
-              (prevSettings: Game): Game => ({
-                ...prevSettings,
-                piles: [...prevSettings.piles, 1],
-              })
-            );
+            if (gameSettings.piles.length === 10) {
+              alert("Can't add more than 10 piles!");
+            } else
+              setGameSettings(
+                (prevSettings: Game): Game => ({
+                  ...prevSettings,
+                  piles: [...prevSettings.piles, 1],
+                })
+              );
           }}
         />
       </div>
+      {/* start */}
       <div
         style={{
           width: "12.4%",
@@ -76,6 +80,7 @@ const ConfigPage: FC<ConfigProps> = ({
           }}
         />
       </div>
+      {/* computer <-> 2players */}
       <div
         style={{
           width: "16.3%",
@@ -107,6 +112,7 @@ const ConfigPage: FC<ConfigProps> = ({
             : "Play with computer"}
         </button>
       </div>
+      {/* back */}
       <div
         style={{
           width: "9%",
@@ -129,6 +135,7 @@ const ConfigPage: FC<ConfigProps> = ({
           }}
         />
       </div>
+      {/* easy */}
       <div
         style={{
           width: "7.8%",
@@ -155,6 +162,7 @@ const ConfigPage: FC<ConfigProps> = ({
           }}
         />
       </div>
+      {/* medium */}
       <div
         style={{
           width: "8.4%",
@@ -181,6 +189,7 @@ const ConfigPage: FC<ConfigProps> = ({
           }}
         />
       </div>
+      {/* hard */}
       <div
         style={{
           width: "7.8%",
@@ -207,6 +216,7 @@ const ConfigPage: FC<ConfigProps> = ({
           }}
         />
       </div>
+      {/* increase a pile */}
       <div
         style={{
           width: "16%",
@@ -220,6 +230,7 @@ const ConfigPage: FC<ConfigProps> = ({
           justifyContent: "space-evenly",
           flexWrap: "wrap",
           flex: "0 0 20%",
+          alignContent: "center",
         }}
       >
         {gameSettings.piles.map((numberOfStones: number, index: number) => {
@@ -249,6 +260,7 @@ const ConfigPage: FC<ConfigProps> = ({
           );
         })}
       </div>
+      {/* text */}
       <div
         style={{
           width: "13%",
