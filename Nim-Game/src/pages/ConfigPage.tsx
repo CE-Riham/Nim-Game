@@ -12,6 +12,7 @@ const ConfigPage: FC<ConfigProps> = ({
   setCurrentPage,
   setGameSettings,
   gameSettings,
+
 }) => {
   return (
     <div style={{ width: "100%", height: "100%" }}>
@@ -63,10 +64,13 @@ const ConfigPage: FC<ConfigProps> = ({
           onClick={() => {
             if (gameSettings.piles.length === 0) {
               alert("There are no piles to start the game!");
-            } else setCurrentPage("GamePage");
+            } else {
+              setCurrentPage("GamePage");
+            }
           }}
         />
       </div>
+      {}
       {/* computer <-> 2players */}
       <div
         style={{
@@ -169,7 +173,7 @@ const ConfigPage: FC<ConfigProps> = ({
           }}
         />
       </div>
-      {/* increase a pile */}
+      {/* add to pile */}
       <div
         style={{
           width: "16%",

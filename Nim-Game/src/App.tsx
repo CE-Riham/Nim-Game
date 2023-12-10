@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import WelcomePage from "./pages/WelcomePage";
 import VersionsPage from "./pages/VersionsPage";
 import ConfigurationsPage from "./pages/ConfigPage";
@@ -10,6 +10,7 @@ export type Game = {
   version: string | null;
   player2: string;
   difficulty: string;
+  turn: boolean;
 };
 
 export const gameDefault: Game = {
@@ -17,11 +18,13 @@ export const gameDefault: Game = {
   version: null,
   player2: "computer",
   difficulty: "easy",
+  turn: true,
 };
 
 function App() {
   const [currentPage, setCurrentPage] = useState("WelcomePage");
   const [gameSettings, setGameSettings] = useState<Game>(gameDefault);
+
   console.log(gameSettings);
 
   return (
